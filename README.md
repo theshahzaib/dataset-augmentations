@@ -14,13 +14,13 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-```bash
-python main_augmentations.py --images dataset/ --type add_shadow --ext jpg
+```shell
+python main.py --images dataset/ --type add_shadow --ext jpg
 ```
 
 ## For all augmentations (Default)
 ```bash
-python main_augmentations.py
+python main.py
 ```
 
 
