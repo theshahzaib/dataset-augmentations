@@ -91,8 +91,11 @@ def augment_all_one(image, output_path, txt_path, image_name, aug_):
 
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     cv2.imwrite(output_path + aug_ + '_' + image_name, image)
-    name = image_name.split('.')[0]
+    # print(image_name)
+    name = image_name[:-4]
+    # print(name)
     shutil.copy(txt_path, output_path + name + '.txt')
+    # shutil.copy(txt_path, output_path + aug_ + '_' + name + '.txt')
     os.rename(output_path + name + '.txt', output_path + aug_ + '_' + name + '.txt')
 
 if __name__ == "__main__":
@@ -135,7 +138,7 @@ if __name__ == "__main__":
         for img_path in tqdm(images_list, desc=f'Augmenting images with {aug_}', position=1, leave=True):
             # print(img_path)
             image_name = os.path.basename(img_path)
-            txt_name = image_name.split('.')[0]
+            txt_name = image_name[:-4]
             txt_path = args.images + txt_name + '.txt'
             image = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
 
