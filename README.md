@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ## Usage
 ```shell
-python main.py --images dataset/ --type add_shadow --ext jpg
+python main.py --images dataset/ --ext jpg --type add_shadow
 ```
 
 ## For all augmentations (Default)
