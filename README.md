@@ -18,7 +18,7 @@ pip install -r requirements.txt
 python main_augmentations.py --images dataset/ --type add_shadow --ext jpg
 ```
 
-## For all augmentationns (Default)
+## For all augmentations (Default)
 ```bash
 python main_augmentations.py
 ```
