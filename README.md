@@ -2,7 +2,7 @@
  Dataset Augmentations All in One
 
 ## Introduction
-This code will do the augmentation of the dataset.
+This code will do the augmentation of the labeled dataset.
 
 ## Augmentations Types
 `
@@ -12,6 +12,9 @@ This code will do the augmentation of the dataset.
 ```
 pip install -r requirements.txt
 ```
+
+## Steps
+Place the images and the labels in the same folder. `The labels should be in the same name as the image with the extension .txt`
 
 ## Usage
 ```shell
