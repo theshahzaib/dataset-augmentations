@@ -13,6 +13,8 @@ import PIL.Image
 # from torchvision import transforms
 import shutil
 from tqdm import tqdm
+import datetime as dt
+
 
 def augment_all_one(image, output_path, txt_path, image_name, aug_):
 
@@ -89,27 +91,29 @@ def augment_all_one(image, output_path, txt_path, image_name, aug_):
         aug = iaa.ChangeColorTemperature((1100, 10000))
         image = aug(image=image)
 
+    date_time_id = dt.datetime.now().strftime("%d%m%y%H%M%S")
+
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    cv2.imwrite(output_path + aug_ + '_' + image_name, image)
-    # print(image_name)
-    name = image_name[:-4]
-    # print(name)
-    shutil.copy(txt_path, output_path + name + '.txt')
-    # shutil.copy(txt_path, output_path + aug_ + '_' + name + '.txt')
-    os.rename(output_path + name + '.txt', output_path + aug_ + '_' + name + '.txt')
+    cv2.imwrite(output_path + aug_+ '_' + date_time_id + '_' + image_name, image)
+    img_name = image_name[:-4]
+    shutil.copy(txt_path, output_path + img_name + '.txt')
+    os.rename(output_path + img_name + '.txt', output_path + aug_ + '_' + date_time_id + '_' + img_name + '.txt')
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--images', type=str, default='dataset/', help='path to input images')
-    # parser.add_argument('--labels', type=str, default='', help='path to input images')
     parser.add_argument('--type', type=str, default= 'all' , help='augmentation type')
     parser.add_argument('--ext', type=str, default='jpg', help='image extension')
     args = parser.parse_args()
     
-    aug_types = [ 'brightness', 'darken', 'add_shadow', 'add_rain', 'add_graval', 'add_speed', 'hsv', 'green', 'blue',
-                 'red', 'hue', 'linearconstrast', 'gaussian_noise','change', 'add_blur', 'add_sun_flare', 'add_fog',
+    # aug_types = [ 'brightness', 'darken', 'add_shadow', 'add_rain', 'add_graval', 'add_speed', 'hsv', 'green', 'blue',
+    #              'red', 'hue', 'linearconstrast', 'gaussian_noise','change', 'add_blur', 'add_sun_flare', 'add_fog',
+    #              'add_autumn', 'change_temperature' ]
+
+    # Selected augmentation types
+    aug_types = [ 'brightness', 'darken', 'add_shadow', 'add_rain', 'add_graval', 'add_speed', 'hsv', 'hue', 'linearconstrast', 'change', 'add_fog',
                  'add_autumn', 'change_temperature' ]
 
     if args.type == 'all':
@@ -128,9 +132,13 @@ if __name__ == "__main__":
         shutil.rmtree('augmented_images')
     
     # print('Augmenting images...')
-    for aug_ in tqdm(aug_type_list, desc='Augmenting images', position=0):
+    for aug_ in tqdm(aug_type_list, desc='Overall Progress', position=0):
 
-        output_path = 'augmented_images/' + aug_ + '/'
+        #### For each augmentation type, create a folder
+        # output_path = 'augmented_images/' + aug_ + '/'
+
+        #### For all augmentation types, create a single folder
+        output_path = 'augmented_images/'
         if not os.path.exists(output_path):
             os.makedirs(output_path)
 
